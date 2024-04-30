@@ -1,15 +1,14 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.gradle.convention.configureJavaAndroid
+import com.gradle.convention.configureKotlin
 import com.gradle.convention.findVersionIntExt
 import com.gradle.convention.findVersionStringExt
 import com.gradle.convention.implementationExt
 import com.gradle.convention.libs
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
 
@@ -63,21 +62,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
-                }
-
                 buildFeatures {
                     buildConfig = true
                 }
             }
 
-            tasks.withType<KotlinCompile>().configureEach {
-                kotlinOptions {
-                    jvmTarget = JavaVersion.VERSION_17.toString()
-                }
-            }
+            configureJavaAndroid()
+            configureKotlin()
 
             dependencies {
                 // AndroidX
