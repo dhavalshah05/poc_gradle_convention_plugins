@@ -18,18 +18,20 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("kotlin-parcelize")
             }
 
-            extensions.configure<LibraryExtension> {
-                compileSdk = libs.findVersionIntExt("compileSdk")
-
-                defaultConfig {
-                    minSdk = libs.findVersionIntExt("minSdk")
-
-                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                }
-            }
+            configureSdkVersions()
 
             configureJavaAndroid()
             configureKotlin()
+        }
+    }
+
+    private fun Project.configureSdkVersions() {
+        extensions.configure<LibraryExtension> {
+            compileSdk = libs.findVersionIntExt("compileSdk")
+
+            defaultConfig {
+                minSdk = libs.findVersionIntExt("minSdk")
+            }
         }
     }
 }

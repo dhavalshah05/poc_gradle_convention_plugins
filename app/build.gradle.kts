@@ -5,8 +5,20 @@ plugins {
 
 android {
     namespace = "com.starter.app"
+}
 
-    defaultConfig {
-        applicationId = "com.concept.plugins"
-    }
+dependencies {
+    // AndroidX
+    implementation(libs.androidX.coreKtx)
+    implementation(libs.androidX.appCompat)
+    implementation(libs.androidX.constraintLayout)
+    implementation(libs.androidX.lifecycle.viewModel)
+
+    // Coroutine
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    implementation(libs.nitrozenAndroid)
+
+    implementation(project(":sampleLibrary"))
 }
