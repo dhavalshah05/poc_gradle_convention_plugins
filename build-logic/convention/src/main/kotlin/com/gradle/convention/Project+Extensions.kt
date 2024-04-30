@@ -1,13 +1,8 @@
 package com.gradle.convention
 
-import com.android.build.api.dsl.AndroidResources
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.BuildFeatures
-import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.dsl.DefaultConfig
 import com.android.build.api.dsl.LibraryExtension
-import com.android.build.api.dsl.ProductFlavor
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -38,7 +33,7 @@ internal fun Project.debugImplementationExt(dependencyNotation: String) {
     }
 }
 
-internal fun Project.getCommonExtension(): CommonExtension<out BuildFeatures, out BuildType, out DefaultConfig, out ProductFlavor, out AndroidResources> {
+internal fun Project.getCommonExtension(): CommonExtension<*, *, *, *, *, *> {
     val applicationExtension = try {
         extensions.getByType<ApplicationExtension>()
     } catch (e: Throwable) {
@@ -51,9 +46,9 @@ internal fun Project.getCommonExtension(): CommonExtension<out BuildFeatures, ou
         null
     }
 
-    return (applicationExtension as? CommonExtension<*, *, *, *, *>)
-        ?: (libraryExtension as? CommonExtension<*, *, *, *, *>)
-        ?: throw Exception("Not able to find either Application or Library extension")
+    return (applicationExtension as? CommonExtension<*, *, *, *, *, *>)
+        ?: (libraryExtension as? CommonExtension<*, *, *, *, *, *>)
+        ?: throw Exception("Not able to find neither Application nor Library extension")
 }
 
 private val javaVersion = JavaVersion.VERSION_17
