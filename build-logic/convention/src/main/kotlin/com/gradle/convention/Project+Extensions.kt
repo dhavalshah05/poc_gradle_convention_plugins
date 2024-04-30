@@ -11,6 +11,8 @@ import com.android.build.api.dsl.ProductFlavor
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -54,18 +56,26 @@ internal fun Project.getCommonExtension(): CommonExtension<out BuildFeatures, ou
         ?: throw Exception("Not able to find either Application or Library extension")
 }
 
+private val javaVersion = JavaVersion.VERSION_17
+
 internal fun Project.configureKotlin() {
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
+            jvmTarget = javaVersion.toString()
         }
     }
 }
 
 internal fun Project.configureJavaAndroid() {
     getCommonExtension().compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
 }
 
+internal fun Project.configureJavaJvm() {
+    extensions.configure<JavaPluginExtension> {
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+    }
+}

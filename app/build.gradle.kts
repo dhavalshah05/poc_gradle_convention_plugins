@@ -21,4 +21,5 @@ dependencies {
     implementation(libs.nitrozenAndroid)
 
     implementation(project(":sampleLibrary"))
+    implementation(project(":sampleDomainLibrary"))
 }
