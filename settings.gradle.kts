@@ -1,6 +1,7 @@
 rootProject.name = "poc_gradle_convention_plugins"
 
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
