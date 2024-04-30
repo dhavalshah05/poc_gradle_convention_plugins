@@ -1,8 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.gradle.convention.debugImplementationExt
 import com.gradle.convention.findVersionIntExt
 import com.gradle.convention.findVersionStringExt
-import com.gradle.convention.implementationBomExt
 import com.gradle.convention.implementationExt
 import com.gradle.convention.libs
 import org.gradle.api.JavaVersion
@@ -71,13 +69,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
 
                 buildFeatures {
-                    viewBinding = true
-                    compose = true
                     buildConfig = true
-                }
-
-                composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findVersionStringExt("composeKotlinCompiler")
                 }
             }
 
@@ -97,12 +89,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 // Coroutine
                 implementationExt("coroutines-core")
                 implementationExt("coroutines-android")
-
-                // Compose
-                implementationBomExt("compose-bom")
-                implementationExt("compose-material")
-                debugImplementationExt("compose-ui-tooling")
-                implementationExt("compose-ui-toolingPreview")
 
                 implementationExt("nitrozenAndroid")
             }

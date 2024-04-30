@@ -1,5 +1,6 @@
 plugins {
     id("convention.android.application")
+    id("convention.compose")
 }
 
 android {
