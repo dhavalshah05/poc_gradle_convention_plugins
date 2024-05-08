@@ -9,7 +9,11 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal val Project.libs
@@ -54,6 +58,10 @@ internal fun Project.getCommonExtension(): CommonExtension<*, *, *, *, *, *> {
 private val javaVersion = JavaVersion.VERSION_17
 
 internal fun Project.configureKotlin() {
+    extensions.configure<KotlinTopLevelExtension> {
+        jvmToolchain(javaVersion.toString().toInt())
+    }
+
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = javaVersion.toString()
