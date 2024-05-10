@@ -32,6 +32,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             configureBuildVariants()
             configureSigningConfig()
             configureApplicationId()
+            configureProperties()
 
             configureJavaAndroid()
             configureKotlin()
@@ -138,6 +139,19 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             if (!isProductionReleaseBuild) {
                 mergedFlavor.setApplicationId("${variant.applicationId}.dev")
             }
+        }
+    }
+
+    private fun Project.configureProperties() {
+        val abstractAppExtension = extensions.getByType<AbstractAppExtension>()
+        abstractAppExtension.applicationVariants.configureEach {
+            //val variant = this
+            //val mergedFlavor = (variant.mergedFlavor as MergedFlavor)
+            //val isProductionReleaseBuild = variant.buildType.name == BUILD_TYPE_RELEASE && variant.productFlavors[0].name == FLAVOR_PRODUCTION
+
+            //variant.buildConfigField("String", "API_KEY", "\"${properties["API_KEY"]}\"")
+            //variant.resValue("String", "API_KEY", "${API_KEY}")
+            //mergedFlavor.manifestPlaceholders["GOOGLE_KEY"] = "${GOOGLE_KEY}"
         }
     }
 
