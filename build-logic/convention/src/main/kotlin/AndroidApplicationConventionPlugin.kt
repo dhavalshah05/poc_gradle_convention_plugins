@@ -135,13 +135,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             val mergedFlavor = (variant.mergedFlavor as MergedFlavor)
             val isProductionReleaseBuild = variant.buildType.name == BUILD_TYPE_RELEASE && variant.productFlavors[0].name == FLAVOR_PRODUCTION
 
-            val applicationId = if (isProductionReleaseBuild) {
-                "com.concept.plugins"
-            } else {
-                "com.concept.plugins.dev"
+            if (!isProductionReleaseBuild) {
+                mergedFlavor.setApplicationId("${variant.applicationId}.dev")
             }
-
-            mergedFlavor.applicationId = applicationId
         }
     }
 

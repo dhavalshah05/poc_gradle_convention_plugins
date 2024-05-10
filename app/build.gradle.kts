@@ -5,6 +5,10 @@ plugins {
 
 android {
     namespace = "com.starter.app"
+
+    defaultConfig {
+        applicationId = "com.starter.app"
+    }
 }
 
 dependencies {
