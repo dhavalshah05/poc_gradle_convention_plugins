@@ -87,6 +87,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     isMinifyEnabled = false
                     isDebuggable = true
                     versionNameSuffix = ".$BUILD_TYPE_DEBUG"
+                    signingConfig = signingConfigs.getByName(SIGNING_KEY_DEBUG)
                 }
 
                 getByName(BUILD_TYPE_RELEASE) {
